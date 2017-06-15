@@ -30,9 +30,10 @@ $(function(){
   		method: "GET",
   	});
 
-  	request.done(function(jsonData){
-
-  		for (i = 0; i < jsonData.length; i++) 
+  	request.done(function(jsonData)
+  	{
+  		for (i = 0; i < jsonData.length; i++) // foreach uniquement
+  			// sur un array
   		{
   			let $nom = jsonData[i].name;
   			$('<li style="line-height:25px;">'+$nom+'</<li>').appendTo('#listeJson');
@@ -40,10 +41,11 @@ $(function(){
 
   	});
 
-  	request.fail(function(){
 
-
-  	})
+  	request.fail(function( jqXHR, textStatus ) 
+  	{
+  		alert( "Request failed: " + textStatus );
+	});
 	
 
 });
