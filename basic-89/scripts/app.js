@@ -21,9 +21,29 @@ $(function(){
 
 		index++; // incrémentation de l'index
 
-	},3000);
+	},3000000);
 
 
+
+	let request = $.ajax({
+  		url: "https://jsonplaceholder.typicode.com/users",
+  		method: "GET",
+  	});
+
+  	request.done(function(jsonData){
+
+  		for (i = 0; i < jsonData.length; i++) 
+  		{
+  			let $nom = jsonData[i].name;
+  			$('<li style="line-height:25px;">'+$nom+'</<li>').appendTo('#listeJson');
+  		}
+
+  	});
+
+  	request.fail(function(){
+
+
+  	})
 	
 
 });
