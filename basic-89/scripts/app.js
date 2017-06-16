@@ -133,10 +133,76 @@ $(function(){
 
   
 
+// ----------------- EXO IMAGES ----------------------------------------------------
+
+	let increment = 0;
+	let pictures;
+
+	$.get( "https://jsonplaceholder.typicode.com/photos" )
+	.done(function( data ){
+
+		for(let a = 0; a < 3; a++) // si pas de crochet pour une boucle
+			// alors une seule occurance
+			$(".one_third").eq(a).children().attr('src',data[a].url);
+		
+		pictures = data;
+
+	});
+
+
+	$("figcaption > a").click(function(e){
+		e.preventDefault();
+		var content = "";
+		var indexLi = $(".one_third").length;
+
+		for(let i = increment ; i < increment+10 ; i++)
+		{	
+			if((indexLi+1)%3 == 0)
+				classHtml = 'lastbox';
+				content += '<li class="one_third"><img src="'+pictures[i].url+'" width="290" height="180 alt="></li>';
+				indexLI++;
+		}
+		$(".clear").append(content);
+		increment += 10;
+		
+	});
 
 	
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 });
 
