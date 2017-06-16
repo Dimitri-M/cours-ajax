@@ -87,8 +87,56 @@ $(function(){
 	});
 	
 
+//------JOURNEE 2  VENDREDI------------- EXO REMPLACER LES 4 POST -------------------------------
   	
+  	$.ajax({ // AJAX SANS VARIABLE, SYNTAXE DIFFERENT MAIS MEME FONCTIONNEMENT
+  		url: "https://jsonplaceholder.typicode.com/posts",
+  		method: "GET",
+  	}) // PAS DE POINT VIRGULE CAR ON CONCATENE
 
+
+  	.done(function(dataPosts){
+
+  		for (let i = 0; i < 4; i++) 
+  		{
+  			$(".one_quarter > strong").eq(i).text(dataPosts[i].title);
+  			$(".jsDescription").eq(i).text(dataPosts[i].body.slice(0, 97)+"...");
+  			//dataPosts[i].body.slice(0,97)+"...";
+
+  			$(".one_quarter a").eq(i).click(function(e){
+  				e.preventDefault();
+
+  				if ($(this).text() != "Less") 
+  				{
+  					$(".jsDescription").eq(i).text(dataPosts[i].body.slice(0, 150)+"...");
+  					$(this).text("Less");
+  				
+  				}
+  				else
+  				{
+  					$(".jsDescription").eq(i).text(dataPosts[i].body.slice(0,97)+"...");
+  					$(this).text("Read More >>");
+  				}
+  				
+  			});
+  		
+  		}
+
+  		
+
+  	})
+
+  	.fail(function( jqXHR, textStatus){
+
+  		alert( "Request failed: " + textStatus );
+  	});
+
+  
+
+
+	
+
+	
 
 });
 
