@@ -86,7 +86,7 @@ $(function(){
   		alert( "Request failed: " + textStatus );
 	});
 	
-
+// -----------------------------------------------------------------------
 //------JOURNEE 2  VENDREDI------------- EXO REMPLACER LES 4 POST -------------------------------
   	
   	$.ajax({ // AJAX SANS VARIABLE, SYNTAXE DIFFERENT MAIS MEME FONCTIONNEMENT
@@ -167,16 +167,33 @@ $(function(){
 		
 	});
 
-	
+//	---------------------------------------------------------------
+//----------JOURNEE 3  MARDI------------- EXO
 
 
+	$("form").submit(function(e){
+		e.preventDefault();
+		$.ajax({ 
+	  		url: "http://localhost/cours-ajax/basic-89/formulaire.php",
+	  		method: "POST",
+	  		data: $('form').serialize()
+	  	})
 
+		.done(function(dataPosts){
+			$("#message_ajax").html("<div><strong> Success !</strong></div>")
+			console.log("User register");
+	  		
 
+	  		
 
+	  	})
 
+	  	.fail(function( jqXHR, textStatus){
 
+	  		alert( "Request failed: " + textStatus );
+	  	});
 
-
+	})
 
 
 
