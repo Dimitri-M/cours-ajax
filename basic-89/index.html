@@ -89,7 +89,9 @@
       <section id="posts" class="last clear">
         <div id="message_ajax"></div>
 
-         <form action="formulaire.php" method="POST">
+         <form action="formulaire.php" method="POST" id="submit">
+
+            <input type="hidden" name="id" id="id">
 
             <label for="nom">Nom</label><br>
             <input type="text" name="nom" id="nom"><br><br><br>
@@ -102,12 +104,13 @@
             
             <label for="poste">Poste</label><br>
             <select name="poste" id="poste">
-              <option value="CIO">CIO</option>
-              <option value="CEO">CEO</option>
-              <option value="SIO">SIO</option>
+              <option value="0">CIO</option>
+              <option value="1">CEO</option>
+              <option value="2">SIO</option>
             </select><br><br>
 
-            <input type="submit" value="Soumettre" id="submit">
+            <input type="submit" value="Soumettre" id="submi">
+            <input type="submit" value="Delete" id="deleteUser">
 
           </form>
 

@@ -1,6 +1,8 @@
 
 $(function(){
 
+// let =/= var, var redéfini la valeur dans tout le code
+// let ne la redéfinie que dans la fonction de façon locale (voir doc en ligne)
 
 	let images =[ // tableau avec 3 images
 	"http://p.fod4.com/p/media/77030e144a/c=sq/s=w700/o=90/IDhHZh1NRcyuPqDP2IJr_lol-cat-303363.jpg",
@@ -8,7 +10,9 @@ $(function(){
 	"https://weilerpsiblog.files.wordpress.com/2009/12/lolcat-wtf-i-am-smiling.jpg"];
 	let index = 0;
 
-	setInterval(function(){ // fonction anonyme avec timer
+	setInterval(function(){ // fonction anonyme avec interval
+		// interval = TOUTE les ... secondes
+		// timer = une fois AU BOUT de ... sec
 
 
 
@@ -26,18 +30,21 @@ $(function(){
 
 
 	let request = $.ajax({
-  		url: "https://jsonplaceholder.typicode.com/users",
+  		url: "http://localhost/cours-ajax/basic-89/formulaire.php",
   		method: "GET",
   	});
 
   	request.done(function(jsonData)
   	{
+  		jsonData = JSON.parse(jsonData)
   		for (i = 0; i < jsonData.length; i++) // foreach uniquement
   			// sur un array
   		{
   			let $element = jsonData[i];
-  			$('<li id="user-'+$element.id+'" style="line-height:25px;"><a href="">'+$element.name+'</a> </<li>').appendTo('#listeJson');
+  			$('<li id="user-'+$element.id+'" style="line-height:25px;"><a href="">'+$element.firstname+' '+$element.lastname+'</a> </<li>').appendTo('#listeJson');
+  			//console.log($element);
   		}
+  		
 // --------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------
 
@@ -48,13 +55,13 @@ $(function(){
   	//--------// RECUPERATION DE l'ID -----------
 
   			let idUser = $(this).attr("id"); 
-  			console.log(idUser.split("-"));
+  			//console.log(idUser.split("-"));
   			idUser = idUser.split("-"); // on coupe l'id au niveau du tiret
-  			// ce qui crée un tableau en deux morceaux avec e mot user
+  			// ce qui crée un tableau en deux morceaux avec le mot user
   			// d'un coté et le chiffre de l'autre
 
   			let ficheUser = $.ajax({
-  				url: "https://jsonplaceholder.typicode.com/users",
+  				url: "http://localhost/cours-ajax/basic-89/formulaire.php",
   				method: "GET",
   				data: {id : idUser[1]}, // on appel dans le json le user
   				// dont l'ID correspond au chiffre qui est le deuxième
@@ -64,8 +71,15 @@ $(function(){
 
   			ficheUser.done(function(dataUser)
   			{
-
-  				console.log(dataUser[0].username+"  "+dataUser[0].email);
+  				dataUser = JSON.parse(dataUser)
+  				console.log(dataUser[0].firstname+"  "+dataUser[0].lastname);
+  				$("#nom").val(dataUser[0].firstname);
+  				$("#prenom").val(dataUser[0].lastname);
+  				$("#date").val(dataUser[0].dateNaissance);
+  				$("#id").val(dataUser[0].id);
+  			
+  				$("#poste option[value="+dataUser[0].poste+"]").prop("selected",true);
+  				
   			});
 
   			request.fail(function( jqXHR, textStatus ) 
@@ -160,7 +174,7 @@ $(function(){
 			if((indexLi+1)%3 == 0)
 				classHtml = 'lastbox';
 				content += '<li class="one_third"><img src="'+pictures[i].url+'" width="290" height="180 alt="></li>';
-				indexLI++;
+				indexLi ++;
 		}
 		$(".clear").append(content);
 		increment += 10;
@@ -171,7 +185,7 @@ $(function(){
 //----------JOURNEE 3  MARDI------------- EXO
 
 
-	$("form").submit(function(e){
+	$("#submit").submit(function(e){
 		e.preventDefault();
 		$.ajax({ 
 	  		url: "http://localhost/cours-ajax/basic-89/formulaire.php",
@@ -197,7 +211,29 @@ $(function(){
 
 
 
+	$("#deleteUser").click(function(e){
+		e.preventDefault();
+		console.log("test");
 
+		$.ajax({ 
+	  		url: "http://localhost/cours-ajax/basic-89/formulaire.php",
+	  		method: "POST",
+	  		data: {id : $("#id").val()}
+	  	})
+
+		.done(function(dataPosts){
+			
+	  		
+
+	  		
+
+	  	})
+
+	  	.fail(function( jqXHR, textStatus){
+
+	  		alert( "Request failed: " + textStatus );
+	  	});
+	})
 
 
 
